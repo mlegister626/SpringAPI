@@ -1,6 +1,6 @@
-package com.codewithmosh.store.repositories;
+package com.codewithmosh.repositories.repositories;
 
-import com.codewithmosh.store.entities.Product;
+import com.codewithmosh.entities.entities.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ProductRepository extends JpaRepository<Product, Long> {

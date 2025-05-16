@@ -1,9 +1,8 @@
-package com.codewithmosh.store.entities;
+package com.codewithmosh.entities.entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-import java.util.Date;
 
 @AllArgsConstructor
 @Getter

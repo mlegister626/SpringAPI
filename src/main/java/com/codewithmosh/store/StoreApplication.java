@@ -9,5 +9,6 @@ public class StoreApplication {
     public static void main(String[] args) {
         SpringApplication.run(StoreApplication.class, args);
         System.out.println("Hello World, its time to make a store using Spring to make APIs.");
+
     }
 }

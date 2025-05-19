@@ -15,7 +15,6 @@ public class UserDto {
     private Long id;
     private String name;
     private String email;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime createdAt;
+    private String password;
+
 }

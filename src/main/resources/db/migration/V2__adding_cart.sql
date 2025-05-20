@@ -1,5 +1,5 @@
 create table cart
 (
-    id          varchar(36) not null,
-    dateCreated DATE        not null
+    id          binary(16) default (uuid_to_bin(uuid())) not null,
+    dateCreated DATE default (current_date()) not null
 );

@@ -6,13 +6,17 @@ import com.codewithmosh.dtos.UpdateUserRequest;
 import com.codewithmosh.dtos.UserDTO;
 import com.codewithmosh.mappers.UserMapper;
 import com.codewithmosh.repositories.repositories.UserRepository;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 
 @AllArgsConstructor
@@ -44,9 +48,12 @@ public class UserController {
        return ResponseEntity.ok(userMapper.toDto(user));
     }
     @PostMapping("")
-    public ResponseEntity<UserDTO> createUser(
+    public ResponseEntity<?> registerUser(@Valid
             @RequestBody RegisterUserRequest request,
             UriComponentsBuilder uriBuilder){
+        if(userRepository.existsByEmail(request.getEmail())){
+            return ResponseEntity.badRequest().body(Map.of("email","Email is already registered"));
+        }
         var user = userMapper.toEntity(request);
         userRepository.save(user);
 

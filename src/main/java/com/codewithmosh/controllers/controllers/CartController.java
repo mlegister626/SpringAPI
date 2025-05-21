@@ -6,6 +6,7 @@ import com.codewithmosh.entities.entities.Cart;
 import com.codewithmosh.entities.entities.Product;
 import com.codewithmosh.mappers.CartMapper;
 import com.codewithmosh.mappers.ProductMapper;
+import com.codewithmosh.repositories.repositories.CartItemsRepository;
 import com.codewithmosh.repositories.repositories.CartRepository;
 import com.codewithmosh.repositories.repositories.ProductRepository;
 import jakarta.validation.Valid;
@@ -24,6 +25,7 @@ public class CartController {
     private final CartMapper cartMapper;
     private final ProductRepository productRepository;
     private final ProductMapper productMapper;
+    private final CartItemsRepository cartItemsRepository;
 
     //    @GetMapping("/{id}")
 //    public ResponseEntity<CartDto> getCart(@PathVariable UUID id) {
@@ -45,7 +47,14 @@ public class CartController {
         return ResponseEntity.created(uri).body(cartDto);
     }
     @PostMapping("{cartId}/items")
-    public ResponseEntity<?> addToCart(@RequestBody Product product, CartItemsDto cartItemsDto){
+    public ResponseEntity<?> addToCart(@RequestBody CartItemsDto cartItemsDto, @PathVariable UUID cartId){
+        if(cartRepository.findCartById(cartId) == null){
+            return ResponseEntity.badRequest().build();
+        }
+        if(productRepository.findById(cartItemsDto.getProductId()) == null){
+            return ResponseEntity.notFound().build();
+        }
+        //i need to find this object in my cart, and then add the quantity they null
         return null;
     }
 }

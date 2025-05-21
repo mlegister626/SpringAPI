@@ -1,7 +1,9 @@
 package com.codewithmosh.controllers.controllers;
 
 import com.codewithmosh.dtos.CartDto;
+import com.codewithmosh.dtos.CartItemsDto;
 import com.codewithmosh.entities.entities.Cart;
+import com.codewithmosh.entities.entities.Product;
 import com.codewithmosh.mappers.CartMapper;
 import com.codewithmosh.mappers.ProductMapper;
 import com.codewithmosh.repositories.repositories.CartRepository;
@@ -42,8 +44,8 @@ public class CartController {
         var uri = uriComponentsBuilder.path("/carts/{id}").buildAndExpand(cartDto.getId()).toUri();
         return ResponseEntity.created(uri).body(cartDto);
     }
-    @
-    public ResponseEntity<?> addToCart(RequestParam ){
-
+    @PostMapping("{cartId}/items")
+    public ResponseEntity<?> addToCart(@RequestBody Product product, CartItemsDto cartItemsDto){
+        return null;
     }
 }

@@ -8,10 +8,7 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @Data
 public class CartItemsDto {
-    private final Long productId;
-    private final String productName;
-    private final int quantity;
-    private final BigDecimal price;
-    private final BigDecimal totalPrice;
-
+    private CartProductDto cartProductDto;
+    private BigDecimal totalPrice;
+    private int quantity;
 }

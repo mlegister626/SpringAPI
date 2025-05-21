@@ -18,7 +18,7 @@ public class Cart {
     @Column(name = "id")
     private UUID id;
     //need separate id and a separate data structure to map these and keep together the data.
-    @OneToMany(mappedBy = "cartId")
+    @OneToMany(mappedBy = "cartId", cascade = CascadeType.MERGE)
     private Set<CartItems> cartItems = new LinkedHashSet<>();
 
     @Column(name = "date",insertable = false,updatable = false)

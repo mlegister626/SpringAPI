@@ -1,16 +1,16 @@
 package com.codewithmosh.controllers.controllers;
 
-import com.codewithmosh.dtos.CartDto;
+import com.codewithmosh.dtos.AddItemToCartRequest;
 import com.codewithmosh.dtos.CartItemsDto;
 import com.codewithmosh.entities.entities.Cart;
-import com.codewithmosh.entities.entities.Product;
+import com.codewithmosh.entities.entities.CartItems;
 import com.codewithmosh.mappers.CartMapper;
 import com.codewithmosh.mappers.ProductMapper;
 import com.codewithmosh.repositories.repositories.CartItemsRepository;
 import com.codewithmosh.repositories.repositories.CartRepository;
 import com.codewithmosh.repositories.repositories.ProductRepository;
-import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -47,14 +47,30 @@ public class CartController {
         return ResponseEntity.created(uri).body(cartDto);
     }
     @PostMapping("{cartId}/items")
-    public ResponseEntity<?> addToCart(@RequestBody CartItemsDto cartItemsDto, @PathVariable UUID cartId){
-        if(cartRepository.findCartById(cartId) == null){
+    public ResponseEntity<CartItemsDto> addToCart(@RequestBody AddItemToCartRequest request, @PathVariable UUID cartId){
+        var cart = cartRepository.findById(cartId).orElse(null);
+        if(cart == null){
             return ResponseEntity.badRequest().build();
         }
-        if(productRepository.findById(cartItemsDto.getProductId()) == null){
-            return ResponseEntity.notFound().build();
+        var product = productRepository.findById(request.getProductId()).orElse(null);
+        if(product == null){
+            return ResponseEntity.badRequest().build();
         }
         //i need to find this object in my cart, and then add the quantity they null
-        return null;
+        var cartItem = cart.getCartItems().stream()
+                .filter(item -> item.getProduct().getId().equals(product.getId()))
+        .findFirst().orElse(null);
+        if(cartItem!=null){
+            cartItem.setQuantity(cartItem.getQuantity() + 1);
+        }else{
+            cartItem = new CartItems();
+            cartItem.setProduct(product);
+            cartItem.setQuantity(1);
+            cartItem.setCartId(cart);
+            cart.getCartItems().add(cartItem);
+        }
+        cartRepository.save(cart);
+        var cartItemDto = cartMapper.toCartItemsDto(cartItem);
+        return ResponseEntity.status(HttpStatus.CREATED).body(cartItemDto);
     }
 }

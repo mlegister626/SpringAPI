@@ -19,7 +19,7 @@ public class Cart {
     @Column(name = "id")
     private UUID id;
     //need separate id and a separate data structure to map these and keep together the data.
-    @OneToMany(mappedBy = "cartId", cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "cartId", cascade = CascadeType.MERGE, fetch = FetchType.LAZY, orphanRemoval = true)
     private Set<CartItems> items = new LinkedHashSet<>();
 
     @Column(name = "date",insertable = false,updatable = false)
@@ -32,5 +32,33 @@ public class Cart {
         }
         return total;
     }
-
+    public CartItems getItem(Long productId){
+        return items.stream()
+                .filter(item-> item.getProduct().getId().equals(productId))
+                .findFirst()
+                .orElse(null);
+    }
+    public CartItems addItem(Product product){
+        var cartItem = getItem(product.getId());
+        if(cartItem!=null){
+            cartItem.setQuantity(cartItem.getQuantity() + 1);
+        }else{
+            cartItem = new CartItems();
+            cartItem.setProduct(product);
+            cartItem.setQuantity(1);
+            cartItem.setCartId(this);
+            items.add(cartItem);
+        }
+        return cartItem;
+    }
+    public void removeItem(Long productId){
+        var cartItem = getItem(productId);
+        if(cartItem!=null){
+            items.remove(cartItem);
+            cartItem.setCartId(null);
+        }
+    }
+    public void clearCart(){
+        items.clear();
+    }
 }

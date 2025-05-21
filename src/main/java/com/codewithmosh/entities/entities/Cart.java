@@ -12,7 +12,7 @@ import java.util.*;
 @Entity
 @Table(name = "cart")
 @NoArgsConstructor
-public class Carts {
+public class Cart {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id")

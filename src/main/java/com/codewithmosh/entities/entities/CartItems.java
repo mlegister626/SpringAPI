@@ -20,7 +20,7 @@ public class CartItems {
     private long Id;
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "cart_id")
-    private Carts cartId;
+    private Cart cartId;
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "product_id")
     private Product product;

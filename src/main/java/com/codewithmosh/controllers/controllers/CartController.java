@@ -1,0 +1,49 @@
+package com.codewithmosh.controllers.controllers;
+
+import com.codewithmosh.dtos.CartDto;
+import com.codewithmosh.entities.entities.Cart;
+import com.codewithmosh.mappers.CartMapper;
+import com.codewithmosh.mappers.ProductMapper;
+import com.codewithmosh.repositories.repositories.CartRepository;
+import com.codewithmosh.repositories.repositories.ProductRepository;
+import jakarta.validation.Valid;
+import lombok.AllArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
+
+import java.util.UUID;
+
+@RestController
+@RequestMapping("/cart")
+@AllArgsConstructor
+public class CartController {
+    private final CartRepository cartRepository;
+    private final CartMapper cartMapper;
+    private final ProductRepository productRepository;
+    private final ProductMapper productMapper;
+
+    //    @GetMapping("/{id}")
+//    public ResponseEntity<CartDto> getCart(@PathVariable UUID id) {
+//        var cart = cartRepository.getCartsById(id).stream().findFirst().orElse(null);
+//        if(cart == null){
+//            return ResponseEntity.notFound().build();
+//        }
+//        var cartDto = new CartDto(cart.getId(), cart.getDate());
+//        return ResponseEntity.ok(cartDto);
+//    }
+    //next I must create my cart for my items
+    @PostMapping("")
+    public ResponseEntity<?> createCart(UriComponentsBuilder uriComponentsBuilder){
+        var cart = new Cart();
+        cartRepository.save(cart);
+
+        var cartDto = cartMapper.toDto(cart);
+        var uri = uriComponentsBuilder.path("/carts/{id}").buildAndExpand(cartDto.getId()).toUri();
+        return ResponseEntity.created(uri).body(cartDto);
+    }
+    @
+    public ResponseEntity<?> addToCart(RequestParam ){
+
+    }
+}

@@ -23,8 +23,8 @@ public class CartItems {
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "cart_id")
     private Cart cartId;
-    @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "product_id")
+    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    @JoinColumn(name = "product_id" )
     private Product product;
     @Column(name = "quantity")
     private int quantity;

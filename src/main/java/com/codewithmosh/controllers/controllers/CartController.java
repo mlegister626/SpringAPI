@@ -1,6 +1,7 @@
 package com.codewithmosh.controllers.controllers;
 
 import com.codewithmosh.dtos.AddItemToCartRequest;
+import com.codewithmosh.dtos.CartDto;
 import com.codewithmosh.dtos.CartItemsDto;
 import com.codewithmosh.entities.entities.Cart;
 import com.codewithmosh.entities.entities.CartItems;
@@ -27,16 +28,16 @@ public class CartController {
     private final ProductMapper productMapper;
     private final CartItemsRepository cartItemsRepository;
 
-    //    @GetMapping("/{id}")
-//    public ResponseEntity<CartDto> getCart(@PathVariable UUID id) {
-//        var cart = cartRepository.getCartsById(id).stream().findFirst().orElse(null);
-//        if(cart == null){
-//            return ResponseEntity.notFound().build();
-//        }
-//        var cartDto = new CartDto(cart.getId(), cart.getDate());
-//        return ResponseEntity.ok(cartDto);
-//    }
-    //next I must create my cart for my items
+        @GetMapping("/{id}")
+    public ResponseEntity<CartDto> getCart(@PathVariable UUID id,
+        @RequestBody UriComponentsBuilder uriComponent) {
+            var cart = cartRepository.getCartsWithItems(id).orElse(null);
+            if(cart == null){
+                return ResponseEntity.notFound().build();
+            }
+            var cartDto = cartMapper.toDto(cart);
+            return ResponseEntity.ok(cartDto);
+    }
     @PostMapping("")
     public ResponseEntity<?> createCart(UriComponentsBuilder uriComponentsBuilder){
         var cart = new Cart();
@@ -48,7 +49,7 @@ public class CartController {
     }
     @PostMapping("{cartId}/items")
     public ResponseEntity<CartItemsDto> addToCart(@RequestBody AddItemToCartRequest request, @PathVariable UUID cartId){
-        var cart = cartRepository.findById(cartId).orElse(null);
+        var cart = cartRepository.getCartsWithItems(cartId).orElse(null);
         if(cart == null){
             return ResponseEntity.badRequest().build();
         }
@@ -57,7 +58,7 @@ public class CartController {
             return ResponseEntity.badRequest().build();
         }
         //i need to find this object in my cart, and then add the quantity they null
-        var cartItem = cart.getCartItems().stream()
+        var cartItem = cart.getItems().stream()
                 .filter(item -> item.getProduct().getId().equals(product.getId()))
         .findFirst().orElse(null);
         if(cartItem!=null){
@@ -67,10 +68,11 @@ public class CartController {
             cartItem.setProduct(product);
             cartItem.setQuantity(1);
             cartItem.setCartId(cart);
-            cart.getCartItems().add(cartItem);
+            cart.getItems().add(cartItem);
         }
         cartRepository.save(cart);
         var cartItemDto = cartMapper.toCartItemsDto(cartItem);
         return ResponseEntity.status(HttpStatus.CREATED).body(cartItemDto);
     }
+
 }

@@ -6,7 +6,7 @@ import lombok.Getter;
 
 @AllArgsConstructor
 @Getter
-public class UserDTO {
+public class UserDto {
     @JsonProperty("user_id")
     private Long id;
     private String name;

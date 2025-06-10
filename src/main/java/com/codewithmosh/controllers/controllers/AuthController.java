@@ -32,6 +32,12 @@ public class AuthController {
         var token = jWTService.generateToken(request.getEmail());
         return ResponseEntity.ok(new JwtResponse(token));
     }
+    @PostMapping("/validate")
+    public boolean validate(@RequestHeader("Authorization") String authHeader) {
+        System.out.println("Validate call...");
+        var token = authHeader.replace("Bearer ", "");
+        return jWTService.validateToken(token);
+    }
     @ExceptionHandler(BadCredentialsException.class)
     public ResponseEntity<Void> handleBadCredentials(){
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();

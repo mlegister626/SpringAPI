@@ -33,8 +33,8 @@ public class ProductController {
                 .toList();
     }
     @GetMapping("{categoryId}")
-    public ResponseEntity<ProductDTO> getProductByCategoryId(@PathVariable byte id ){
-        var product = productRepository.findByCategoryId(id).stream().findFirst().orElse(null);
+    public ResponseEntity<ProductDTO> getProductByCategoryId(@PathVariable byte categoryId ){
+        var product = productRepository.findByCategoryId(categoryId).stream().findFirst().orElse(null);
         if(product == null){
             return ResponseEntity.notFound().build();
         }

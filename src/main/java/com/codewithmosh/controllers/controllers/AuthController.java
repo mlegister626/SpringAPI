@@ -6,7 +6,8 @@ import com.codewithmosh.dtos.LoginRequest;
 import com.codewithmosh.dtos.UserDto;
 import com.codewithmosh.mappers.UserMapper;
 import com.codewithmosh.repositories.repositories.UserRepository;
-import com.codewithmosh.services.JWTService;
+import com.codewithmosh.services.JwtService;
+import com.codewithmosh.services.Jwt;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
@@ -25,11 +26,11 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/auth")
 public class AuthController {
     private final AuthenticationManager authenticationManager;
-    private final JWTService jWTService;
+    private final JwtService jWTService;
     private final JwtConfig jwtConfig;
     private final UserRepository userRepository;
     private final UserMapper userMapper;
-
+    private final Jwt jwt;
     @PostMapping("/login")
     public ResponseEntity<JwtResponse> login(
             @Valid @RequestBody LoginRequest request,
@@ -44,7 +45,7 @@ public class AuthController {
         var accessToken = jWTService.generateAccessToken(user);
         var refreshToken = jWTService.generateRefreshToken(user);
 
-        var cookie = new Cookie("refreshToken", refreshToken);
+        var cookie = new Cookie("refreshToken", refreshToken.toString());
         cookie.setHttpOnly(true);
         cookie.setPath("/auth/refresh");
         cookie.setMaxAge(jwtConfig.getRefreshTokenExpiration());
@@ -52,21 +53,21 @@ public class AuthController {
 
         response.addCookie(cookie);
 
-        return ResponseEntity.ok(new JwtResponse(accessToken));
+        return ResponseEntity.ok(new JwtResponse(accessToken.toString()));
     }
     @PostMapping("/refresh")
     public ResponseEntity<JwtResponse> refresh(@CookieValue(value = "refreshToken") String refreshToken){
 
-        if(!jWTService.validateToken(refreshToken)){
+        var jwt = jWTService.parseTokens(refreshToken);
+        if(jwt.isExpired()|| jwt == null){
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
-        var userId = jWTService.getUserIDFromToken(refreshToken);
-        var user = userRepository.findById(userId).orElse(null);
+        var user = userRepository.findById(jwt.getUserIDFromToken()).orElse(null);
         if (user == null){
             return ResponseEntity.notFound().build();
         }
         var accessToken = jWTService.generateAccessToken(user);
-        return ResponseEntity.ok(new JwtResponse(accessToken));
+        return ResponseEntity.ok(new JwtResponse(accessToken.toString()));
     }
 
     @GetMapping("/me")

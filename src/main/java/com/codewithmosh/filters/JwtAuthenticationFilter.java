@@ -1,12 +1,12 @@
 package com.codewithmosh.filters;
 
-import com.codewithmosh.services.JWTService;
+import com.codewithmosh.services.Jwt;
+import com.codewithmosh.services.JwtService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -20,7 +20,9 @@ import java.util.List;
 @AllArgsConstructor
 @Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
-    private final JWTService jwtService;
+    private final Jwt jwt;
+    private final JwtService jwtService;
+
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         var authHeader = request.getHeader("Authorization");
@@ -30,14 +32,13 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         }
 
         var token = authHeader.replace("Bearer ", "");
-        if(!jwtService.validateToken(token)){
+        var jwt = jwtService.parseTokens(token);
+        if(jwt==null || !jwt.isExpired()){
             filterChain.doFilter(request, response);
             return;
         }
-        var role = jwtService.getRoleFromToken(token);
-        var userId = jwtService.getUserIDFromToken(token);
         var authentication = new UsernamePasswordAuthenticationToken(
-                userId, null, List.of(new SimpleGrantedAuthority("ROLE_" + role)
+                jwt.getUserIDFromToken(), null, List.of(new SimpleGrantedAuthority("ROLE_" + jwt.getRoleFromToken())
         ));
         authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 

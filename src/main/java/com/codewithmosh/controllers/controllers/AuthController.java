@@ -33,7 +33,7 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<JwtResponse> login(
             @Valid @RequestBody LoginRequest request,
-            HttpServletResponse response){
+            HttpServletResponse response) {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         request.getEmail(),
@@ -54,12 +54,21 @@ public class AuthController {
 
         return ResponseEntity.ok(new JwtResponse(accessToken));
     }
-    @PostMapping("/validate")
-    public boolean validate(@RequestHeader("Authorization") String authHeader) {
-        System.out.println("Validate call...");
-        var token = authHeader.replace("Bearer ", "");
-        return jWTService.validateToken(token);
+    @PostMapping("/refresh")
+    public ResponseEntity<JwtResponse> refresh(@CookieValue(value = "refreshToken") String refreshToken){
+
+        if(!jWTService.validateToken(refreshToken)){
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+        var userId = jWTService.getUserIDFromToken(refreshToken);
+        var user = userRepository.findById(userId).orElse(null);
+        if (user == null){
+            return ResponseEntity.notFound().build();
+        }
+        var accessToken = jWTService.generateAccessToken(user);
+        return ResponseEntity.ok(new JwtResponse(accessToken));
     }
+
     @GetMapping("/me")
     public ResponseEntity<UserDto> me (){
 

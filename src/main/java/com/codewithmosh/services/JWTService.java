@@ -1,6 +1,7 @@
 package com.codewithmosh.services;
 
 import com.codewithmosh.config.JwtConfig;
+import com.codewithmosh.entities.entities.Role;
 import com.codewithmosh.entities.entities.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
@@ -30,6 +31,7 @@ public class JWTService {
         return Jwts.builder()
                 .subject(user.getId().toString())
                 .claim("email", user.getName())
+                .claim("role", user.getRole())
                 .claim("id", user.getId())
                 .issuedAt(new Date())
                 .expiration(new Date(System.currentTimeMillis() + 1000 * tokenExpiration))
@@ -58,6 +60,8 @@ public class JWTService {
     public Long getUserIDFromToken(String token) {
         return Long.valueOf(getClaims(token).getSubject());
     }
-
+    public Role getRoleFromToken(String token){
+        return Role.valueOf(getClaims(token).get("role", String.class));
+    }
 
 }

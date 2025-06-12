@@ -1,6 +1,7 @@
 package com.codewithmosh.controllers.controllers;
 
 import com.codewithmosh.dtos.*;
+import com.codewithmosh.entities.entities.Role;
 import com.codewithmosh.mappers.UserMapper;
 import com.codewithmosh.repositories.repositories.UserRepository;
 import jakarta.validation.Valid;
@@ -59,6 +60,7 @@ public class UserController {
 
         var user = userMapper.toEntity(request);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setRole(Role.USER);
         userRepository.save(user);
         var userDto = userMapper.toDto(user);
         var uri = uriBuilder.path("/users/{id}").buildAndExpand(userDto.getId()).toUri();

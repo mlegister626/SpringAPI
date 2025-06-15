@@ -1,6 +1,5 @@
 package com.codewithmosh.filters;
 
-import com.codewithmosh.services.Jwt;
 import com.codewithmosh.services.JwtService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -20,7 +19,7 @@ import java.util.List;
 @AllArgsConstructor
 @Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
-    private final Jwt jwt;
+
     private final JwtService jwtService;
 
     @Override

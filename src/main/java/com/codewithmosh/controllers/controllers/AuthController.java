@@ -7,7 +7,6 @@ import com.codewithmosh.dtos.UserDto;
 import com.codewithmosh.mappers.UserMapper;
 import com.codewithmosh.repositories.repositories.UserRepository;
 import com.codewithmosh.services.JwtService;
-import com.codewithmosh.services.Jwt;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
@@ -30,7 +29,7 @@ public class AuthController {
     private final JwtConfig jwtConfig;
     private final UserRepository userRepository;
     private final UserMapper userMapper;
-    private final Jwt jwt;
+
     @PostMapping("/login")
     public ResponseEntity<JwtResponse> login(
             @Valid @RequestBody LoginRequest request,

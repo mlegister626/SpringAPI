@@ -12,7 +12,7 @@ import java.util.Date;
 @AllArgsConstructor
 @Service
 public class JwtService {
-    public final JwtConfig jwtConfig;
+    private final JwtConfig jwtConfig;
     private final SecretKey secretKey;
 
     public Jwt generateAccessToken(User user) {
@@ -47,6 +47,7 @@ public class JwtService {
             return null;
         }
     }
+
     private Claims getClaims(String token) {
         return Jwts.parser()
                 .verifyWith(secretKey)

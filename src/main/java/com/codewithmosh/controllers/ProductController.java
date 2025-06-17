@@ -1,10 +1,10 @@
-package com.codewithmosh.controllers.controllers;
+package com.codewithmosh.controllers;
 
 import com.codewithmosh.dtos.ProductDTO;
-import com.codewithmosh.entities.entities.Product;
+import com.codewithmosh.entities.Product;
 import com.codewithmosh.mappers.ProductMapper;
-import com.codewithmosh.repositories.repositories.CategoryRepository;
-import com.codewithmosh.repositories.repositories.ProductRepository;
+import com.codewithmosh.repositories.CategoryRepository;
+import com.codewithmosh.repositories.ProductRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

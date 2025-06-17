@@ -1,6 +1,6 @@
-package com.codewithmosh.controllers.controllers;
+package com.codewithmosh.controllers;
 
-import com.codewithmosh.entities.entities.Message;
+import com.codewithmosh.entities.Message;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 

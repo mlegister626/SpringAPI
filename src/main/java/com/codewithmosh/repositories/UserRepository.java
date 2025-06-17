@@ -1,6 +1,6 @@
-package com.codewithmosh.repositories.repositories;
+package com.codewithmosh.repositories;
 
-import com.codewithmosh.entities.entities.User;
+import com.codewithmosh.entities.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

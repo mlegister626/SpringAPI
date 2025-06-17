@@ -1,4 +1,4 @@
-package com.codewithmosh.controllers.controllers;
+package com.codewithmosh.controllers;
 
 import com.codewithmosh.dtos.AddItemToCartRequest;
 import com.codewithmosh.dtos.CartDto;

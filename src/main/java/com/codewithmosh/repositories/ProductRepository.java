@@ -1,7 +1,6 @@
-package com.codewithmosh.repositories.repositories;
+package com.codewithmosh.repositories;
 
-import com.codewithmosh.entities.entities.Product;
-import org.springframework.data.jpa.repository.EntityGraph;
+import com.codewithmosh.entities.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

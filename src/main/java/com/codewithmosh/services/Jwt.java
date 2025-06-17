@@ -1,6 +1,6 @@
 package com.codewithmosh.services;
 
-import com.codewithmosh.entities.entities.Role;
+import com.codewithmosh.entities.Role;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 

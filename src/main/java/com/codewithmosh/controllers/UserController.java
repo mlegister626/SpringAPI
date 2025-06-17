@@ -1,9 +1,9 @@
-package com.codewithmosh.controllers.controllers;
+package com.codewithmosh.controllers;
 
 import com.codewithmosh.dtos.*;
-import com.codewithmosh.entities.entities.Role;
+import com.codewithmosh.entities.Role;
 import com.codewithmosh.mappers.UserMapper;
-import com.codewithmosh.repositories.repositories.UserRepository;
+import com.codewithmosh.repositories.UserRepository;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Sort;

@@ -1,4 +1,4 @@
-package com.codewithmosh.controllers.controllers;
+package com.codewithmosh.controllers;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

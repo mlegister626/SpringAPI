@@ -1,11 +1,11 @@
-package com.codewithmosh.controllers.controllers;
+package com.codewithmosh.controllers;
 
 import com.codewithmosh.config.JwtConfig;
 import com.codewithmosh.dtos.JwtResponse;
 import com.codewithmosh.dtos.LoginRequest;
 import com.codewithmosh.dtos.UserDto;
 import com.codewithmosh.mappers.UserMapper;
-import com.codewithmosh.repositories.repositories.UserRepository;
+import com.codewithmosh.repositories.UserRepository;
 import com.codewithmosh.services.JwtService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
@@ -14,7 +14,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -81,10 +80,6 @@ public class AuthController {
         var userDto = userMapper.toDto(user);
 
         return ResponseEntity.ok(userDto);
-    }
-    @ExceptionHandler(BadCredentialsException.class)
-    public ResponseEntity<Void> handleBadCredentials(){
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
     }
 
 }

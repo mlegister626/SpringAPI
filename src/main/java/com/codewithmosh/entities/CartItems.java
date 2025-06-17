@@ -1,4 +1,4 @@
-package com.codewithmosh.entities.entities;
+package com.codewithmosh.entities;
 
 
 import jakarta.persistence.*;

@@ -8,7 +8,9 @@ import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
 
 import java.math.BigDecimal;
-import java.time.Instant;
+import java.time.LocalDateTime;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -17,26 +19,29 @@ import java.time.Instant;
 public class Orders {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
+    @Column(name = "id")
     private Long id;
 
-    @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "customer_id", nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "customer_id")
     private User customer;
 
-    @Size(max = 20)
-    @NotNull
-    @Column(name = "status", nullable = false, length = 20)
-    private String status;
 
-    @NotNull
+
+    @Column(name = "status", length = 20)
+    @Enumerated(EnumType.STRING)
+    private OrderStatus orderStatus;
+
+
     @ColumnDefault("CURRENT_TIMESTAMP")
-    @Column(name = "created_At", nullable = false)
-    private Instant createdAt;
+    @Column(name = "created_At")
+    private LocalDateTime createdAt;
 
     @NotNull
-    @Column(name = "total_price", nullable = false, precision = 10, scale = 2)
+    @Column(name = "total_price", precision = 10, scale = 2)
     private BigDecimal totalPrice;
+
+    @OneToMany(mappedBy = "order", cascade = CascadeType.PERSIST)
+    private Set<OrderItem> items = new LinkedHashSet<>();
 
 }

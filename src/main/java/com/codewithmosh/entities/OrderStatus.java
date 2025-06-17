@@ -1,5 +1,5 @@
 package com.codewithmosh.entities;
 
-public enum Status {
+public enum OrderStatus {
     PENDING, PAID, FAILED, CANCELED
 }

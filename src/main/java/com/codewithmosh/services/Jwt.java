@@ -27,7 +27,7 @@ public class Jwt {
     public Role getRoleFromToken(){
         return Role.valueOf(claims.get("role", String.class));
     }
-    public String tokenToString(String token){
+    public String tokenToString(){
         return Jwts.builder().claims(claims).signWith(secretKey).compact();
     }
 }

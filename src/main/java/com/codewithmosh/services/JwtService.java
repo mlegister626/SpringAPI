@@ -15,16 +15,16 @@ public class JwtService {
     private final JwtConfig jwtConfig;
     private final SecretKey secretKey;
 
-    public Jwt generateAccessToken(User user) {
+    public String generateAccessToken(User user) {
         final long tokenExpiration = 300;
         return generateToken(user, jwtConfig.getAccessTokenExpiration());
     }
-    public Jwt generateRefreshToken(User user) {
+    public String generateRefreshToken(User user) {
         final long tokenExpiration = 604800;
         return generateToken(user, jwtConfig.getRefreshTokenExpiration());
     }
 
-    private Jwt generateToken(User user, long tokenExpiration) {
+    private String generateToken(User user, long tokenExpiration) {
         var claims = Jwts.claims()
                 .subject(user.getId().toString())
                 .add("email", user.getEmail())
@@ -34,7 +34,7 @@ public class JwtService {
                 .expiration(new Date(System.currentTimeMillis() + 1000 * tokenExpiration))
                 .build();
 
-        return new Jwt(claims, jwtConfig.getSecretKey());
+        return new Jwt(claims, jwtConfig.getSecretKey()).tokenToString();
 
 
     }

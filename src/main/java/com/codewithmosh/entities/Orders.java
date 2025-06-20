@@ -1,5 +1,6 @@
 package com.codewithmosh.entities;
 
+import com.codewithmosh.services.AuthService;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -17,6 +18,7 @@ import java.util.Set;
 @Entity
 @Table(name = "orders")
 public class Orders {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -44,4 +46,17 @@ public class Orders {
     @OneToMany(mappedBy = "order", cascade = CascadeType.PERSIST)
     private Set<OrderItem> items = new LinkedHashSet<>();
 
+    public static Orders createOrder(Cart cart, User customer) {
+        Orders order = new Orders();
+        order.setTotalPrice(cart.totalInCart());
+        order.setOrderStatus(OrderStatus.PENDING);
+        order.setCustomer(customer);
+
+        cart.getItems().forEach(item -> {
+            var orderItem = new OrderItem(order, item.getProduct(), item.getQuantity());
+
+            order.items.add(orderItem);
+        });
+        return order;
+    }
 }

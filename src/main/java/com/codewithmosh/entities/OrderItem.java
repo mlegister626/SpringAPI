@@ -3,6 +3,7 @@ package com.codewithmosh.entities;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
 
@@ -13,6 +14,7 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
+@NoArgsConstructor
 @Table(name = "order_items")
 public class OrderItem {
     @Id
@@ -37,4 +39,11 @@ public class OrderItem {
     @Column(name = "product_id")
     private Long productId;
 
+    public OrderItem(Orders order, Product product, int quantity) {
+        this.order = order;
+        this.unitPrice = product.getPrice();
+        this.quantity = quantity;
+        this.totalPrice = unitPrice.multiply(BigDecimal.valueOf(quantity));
+        this.productId = product.getId();
+    }
 }

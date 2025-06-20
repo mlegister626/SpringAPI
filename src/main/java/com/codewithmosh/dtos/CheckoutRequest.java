@@ -1,5 +1,6 @@
 package com.codewithmosh.dtos;
 
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
@@ -7,6 +8,6 @@ import java.util.UUID;
 
 @Data
 public class CheckoutRequest {
-    @NotNull(message = "Cart id is required")
+    @NotNull(message = "Cart ID is required")
     private UUID cartId;
 }

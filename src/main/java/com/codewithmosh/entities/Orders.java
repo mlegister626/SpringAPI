@@ -51,6 +51,8 @@ public class Orders {
         order.setTotalPrice(cart.totalInCart());
         order.setOrderStatus(OrderStatus.PENDING);
         order.setCustomer(customer);
+        order.setCreatedAt(LocalDateTime.now());
+
 
         cart.getItems().forEach(item -> {
             var orderItem = new OrderItem(order, item.getProduct(), item.getQuantity());

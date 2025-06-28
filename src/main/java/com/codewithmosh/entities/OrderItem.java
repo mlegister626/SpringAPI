@@ -36,14 +36,15 @@ public class OrderItem {
     @Column(name = "total_price", precision = 10, scale = 2)
     private BigDecimal totalPrice;
 
-    @Column(name = "product_id")
-    private Long productId;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "product_id")
+    private Product product;
 
     public OrderItem(Orders order, Product product, int quantity) {
         this.order = order;
         this.unitPrice = product.getPrice();
         this.quantity = quantity;
         this.totalPrice = unitPrice.multiply(BigDecimal.valueOf(quantity));
-        this.productId = product.getId();
+        this.product = product;
     }
 }

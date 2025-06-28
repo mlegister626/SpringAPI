@@ -8,6 +8,7 @@ import lombok.Data;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
@@ -15,10 +16,10 @@ import java.util.List;
 @AllArgsConstructor
 public class OrdersDto {
 
-    private long id;
-    private OrderStatus status;
+    private Long id;
+    private String status;
     private LocalDateTime createdAt;
-    private List<OrderItemDto> items;
+    private List<OrderItemDto> items = new ArrayList<>();
     private BigDecimal totalPrice = BigDecimal.ZERO;
 
 }

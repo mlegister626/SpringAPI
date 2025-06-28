@@ -19,7 +19,6 @@ public class CheckoutController {
     @PostMapping()
     public CheckoutResponse checkout(
            @Valid @RequestBody CheckoutRequest request){
-        System.out.println(request.getCartId());
         return checkoutService.checkout(request);
     }
     @ExceptionHandler({CartNotFoundException.class, CartNotFoundException.class})

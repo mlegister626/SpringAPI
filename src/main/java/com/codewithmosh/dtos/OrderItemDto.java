@@ -2,9 +2,12 @@ package com.codewithmosh.dtos;
 
 import lombok.Data;
 
+import java.math.BigDecimal;
+
 @Data
 public class OrderItemDto {
-   private OrderProductDto productOrder;
+   private OrderProductDto product;
    private int quantity;
-   private double totalPrice;
+   private BigDecimal totalPrice;
 }
+

@@ -6,6 +6,7 @@ import com.codewithmosh.mappers.OrdersMapper;
 import com.codewithmosh.repositories.OrdersRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 

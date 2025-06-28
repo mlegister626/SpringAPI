@@ -15,4 +15,7 @@ public interface OrdersRepository extends JpaRepository<Orders, Long> {
    @EntityGraph(attributePaths = {"customer"})
    @Query("select o from Orders o where o.customer = :customer")
    List<Orders> getAllByCustomer(User customer);
+
+
+
 }

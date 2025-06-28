@@ -29,11 +29,9 @@ public class Orders {
     private User customer;
 
 
-
     @Column(name = "status", length = 20)
     @Enumerated(EnumType.STRING)
     private OrderStatus orderStatus;
-
 
     @ColumnDefault("CURRENT_TIMESTAMP")
     @Column(name = "created_At")
@@ -43,7 +41,7 @@ public class Orders {
     @Column(name = "total_price", precision = 10, scale = 2)
     private BigDecimal totalPrice;
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "order", fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     private Set<OrderItem> items = new LinkedHashSet<>();
 
     public static Orders createOrder(Cart cart, User customer) {

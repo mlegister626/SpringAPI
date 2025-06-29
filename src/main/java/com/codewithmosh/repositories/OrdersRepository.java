@@ -5,6 +5,7 @@ import com.codewithmosh.entities.User;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 import java.util.Optional;
@@ -14,8 +15,9 @@ public interface OrdersRepository extends JpaRepository<Orders, Long> {
 
    @EntityGraph(attributePaths = {"customer"})
    @Query("select o from Orders o where o.customer = :customer")
-   List<Orders> getAllByCustomer(User customer);
+   List<Orders> getOrdersByCustomer(User customer);
 
-
-
+    @EntityGraph(attributePaths = {"items.product"})
+    @Query("select o from Orders o where o.id = :orderId")
+    Optional<Orders> getOrderWithItems(@Param("orderId")Long id);
 }

@@ -1,7 +1,10 @@
 package com.codewithmosh.controllers;
 
+import com.codewithmosh.dtos.ErrorDto;
 import com.codewithmosh.dtos.OrdersDto;
 import com.codewithmosh.entities.User;
+import com.codewithmosh.exceptions.CartNotFoundException;
+import com.codewithmosh.exceptions.OrderNotFoundException;
 import com.codewithmosh.mappers.OrdersMapper;
 import com.codewithmosh.repositories.OrdersRepository;
 import com.codewithmosh.repositories.UserRepository;
@@ -9,12 +12,11 @@ import com.codewithmosh.services.AuthService;
 import com.codewithmosh.services.OrdersService;
 import io.jsonwebtoken.lang.Maps;
 import lombok.AllArgsConstructor;
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
@@ -34,17 +36,20 @@ public class OrdersController {
         return OrdersService.getOrdersDtos();
     }
     @GetMapping("/{id}")
-    public ResponseEntity<?> getOneOrder(@PathVariable Long id){
-        var order = ordersRepository.findById(id).orElse(null);
-        if(order == null){
-            return ResponseEntity.notFound().build();
-        }
-        if(!(order.getCustomer().getId().equals(authService.getCurrentUser().getId()))){
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
-        }
-
-        var ordersDto = ordersMapper.toDto(order);
-        return ResponseEntity.ok(ordersDto);
+    public OrdersDto getOneOrder(@PathVariable Long id){
+        return OrdersService.getOneOrderDto(id);
+    }
+    @ExceptionHandler(OrderNotFoundException.class)
+    public ResponseEntity<ErrorDto> handleOrderNotFound(){
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .body(new ErrorDto("The order has not been found, enter a valid OrderId"));
+    }
+    @ExceptionHandler(AccessDeniedException.class)
+    public ResponseEntity <ErrorDto> handleAccessDenied(){
+        return ResponseEntity
+                .status(HttpStatus.FORBIDDEN).
+                body(new ErrorDto("You are not authorized to access this order."));
     }
 
 }

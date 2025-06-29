@@ -59,4 +59,7 @@ public class Orders {
         });
         return order;
     }
+    public boolean isPlacedByCustomer(User customer){
+        return this.customer.equals(customer);
+    }
 }

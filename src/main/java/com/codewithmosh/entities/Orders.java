@@ -41,7 +41,7 @@ public class Orders {
     @Column(name = "total_price", precision = 10, scale = 2)
     private BigDecimal totalPrice;
 
-    @OneToMany(mappedBy = "order", fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "order", fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST , CascadeType.REMOVE})
     private Set<OrderItem> items = new LinkedHashSet<>();
 
     public static Orders createOrder(Cart cart, User customer) {

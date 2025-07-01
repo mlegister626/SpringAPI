@@ -1,5 +1,6 @@
 package com.codewithmosh.users;
 
+import com.codewithmosh.dtos.ErrorDto;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Sort;
@@ -21,27 +22,18 @@ public class UserController {
     private final UserRepository userRepository;
     private final UserMapper userMapper;
     private final PasswordEncoder passwordEncoder;
+    private final UserService userService;
+
     @GetMapping
     public Iterable<UserDto> getAllUsers(
             @RequestParam(required = false, defaultValue = "", name = "sort") String sortBy
     ) {
-        if (!Set.of("name", "email").contains(sortBy))
-            sortBy = "name";
-
-        return userRepository.findAll(Sort.by(sortBy))
-                .stream()
-                .map(userMapper::toDto)
-                .toList();
+        return userService.returnAllUsers(sortBy);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<UserDto> getUser(@PathVariable Long id) {
-        var user = userRepository.findById(id).orElse(null);
-        if (user == null) {
-            return ResponseEntity.notFound().build();
-        }
-
-        return ResponseEntity.ok(userMapper.toDto(user));
+                return ResponseEntity.ok(userService.getSingleUser(id));
     }
 
     @PostMapping
@@ -107,5 +99,9 @@ public class UserController {
         userRepository.save(user);
 
         return ResponseEntity.noContent().build();
+    }
+    @ExceptionHandler(UserNotFoundException.class)
+    public ResponseEntity<ErrorDto> handleUserNotFound(){
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorDto("There was an error with user information, please try something else."));
     }
 }

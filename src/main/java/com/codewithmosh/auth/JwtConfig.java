@@ -1,4 +1,4 @@
-package com.codewithmosh.config;
+package com.codewithmosh.auth;
 
 import io.jsonwebtoken.security.Keys;
 import lombok.Data;

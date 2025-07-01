@@ -5,7 +5,7 @@ import com.codewithmosh.dtos.OrdersDto;
 import com.codewithmosh.exceptions.OrderNotFoundException;
 import com.codewithmosh.mappers.OrdersMapper;
 import com.codewithmosh.repositories.OrdersRepository;
-import com.codewithmosh.services.AuthService;
+import com.codewithmosh.auth.AuthService;
 import com.codewithmosh.services.OrdersService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;

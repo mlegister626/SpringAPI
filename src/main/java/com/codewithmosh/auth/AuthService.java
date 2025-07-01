@@ -1,4 +1,4 @@
-package com.codewithmosh.services;
+package com.codewithmosh.auth;
 
 import com.codewithmosh.users.User;
 import com.codewithmosh.users.UserRepository;

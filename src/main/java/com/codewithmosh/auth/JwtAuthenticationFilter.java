@@ -1,6 +1,5 @@
-package com.codewithmosh.filters;
+package com.codewithmosh.auth;
 
-import com.codewithmosh.services.JwtService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

@@ -1,12 +1,8 @@
-package com.codewithmosh.controllers;
+package com.codewithmosh.auth;
 
-import com.codewithmosh.config.JwtConfig;
-import com.codewithmosh.dtos.JwtResponse;
-import com.codewithmosh.dtos.LoginRequest;
 import com.codewithmosh.users.UserDto;
 import com.codewithmosh.users.UserMapper;
 import com.codewithmosh.users.UserRepository;
-import com.codewithmosh.services.JwtService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;

@@ -1,6 +1,5 @@
-package com.codewithmosh.services;
+package com.codewithmosh.auth;
 
-import com.codewithmosh.config.JwtConfig;
 import com.codewithmosh.users.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

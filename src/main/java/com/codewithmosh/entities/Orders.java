@@ -1,5 +1,6 @@
 package com.codewithmosh.entities;
 
+import com.codewithmosh.users.User;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;

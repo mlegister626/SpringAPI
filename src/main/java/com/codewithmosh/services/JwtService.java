@@ -1,7 +1,7 @@
 package com.codewithmosh.services;
 
 import com.codewithmosh.config.JwtConfig;
-import com.codewithmosh.entities.User;
+import com.codewithmosh.users.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import lombok.AllArgsConstructor;

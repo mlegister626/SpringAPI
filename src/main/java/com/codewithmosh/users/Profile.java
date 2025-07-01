@@ -1,4 +1,4 @@
-package com.codewithmosh.entities;
+package com.codewithmosh.users;
 
 import jakarta.persistence.*;
 import lombok.*;

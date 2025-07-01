@@ -1,4 +1,4 @@
-package com.codewithmosh.dtos;
+package com.codewithmosh.users;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;

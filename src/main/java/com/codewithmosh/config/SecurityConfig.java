@@ -1,6 +1,6 @@
 package com.codewithmosh.config;
 
-import com.codewithmosh.entities.Role;
+import com.codewithmosh.users.Role;
 import com.codewithmosh.filters.JwtAuthenticationFilter;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;

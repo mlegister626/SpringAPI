@@ -1,6 +1,5 @@
-package com.codewithmosh.services;
+package com.codewithmosh.users;
 
-import com.codewithmosh.repositories.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;

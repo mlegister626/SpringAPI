@@ -1,8 +1,7 @@
 package com.codewithmosh.services;
 
-import com.codewithmosh.entities.User;
-import com.codewithmosh.repositories.CartRepository;
-import com.codewithmosh.repositories.UserRepository;
+import com.codewithmosh.users.User;
+import com.codewithmosh.users.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;

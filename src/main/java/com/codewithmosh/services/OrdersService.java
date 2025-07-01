@@ -1,16 +1,15 @@
 package com.codewithmosh.services;
 
 import com.codewithmosh.dtos.OrdersDto;
-import com.codewithmosh.entities.User;
+import com.codewithmosh.users.User;
 import com.codewithmosh.exceptions.OrderNotFoundException;
 import com.codewithmosh.mappers.OrdersMapper;
-import com.codewithmosh.mappers.UserMapper;
+import com.codewithmosh.users.UserMapper;
 import com.codewithmosh.repositories.OrdersRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 
-import java.sql.SQLOutput;
 import java.util.List;
 
 @Service

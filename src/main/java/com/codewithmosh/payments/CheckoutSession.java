@@ -1,4 +1,4 @@
-package com.codewithmosh.services;
+package com.codewithmosh.payments;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

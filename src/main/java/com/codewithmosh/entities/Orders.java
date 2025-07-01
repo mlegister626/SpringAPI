@@ -1,9 +1,7 @@
 package com.codewithmosh.entities;
 
-import com.codewithmosh.services.AuthService;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
@@ -31,7 +29,7 @@ public class Orders {
 
     @Column(name = "status", length = 20)
     @Enumerated(EnumType.STRING)
-    private OrderStatus orderStatus;
+    private PaymentStatus orderStatus;
 
     @ColumnDefault("CURRENT_TIMESTAMP")
     @Column(name = "created_At")
@@ -47,7 +45,7 @@ public class Orders {
     public static Orders createOrder(Cart cart, User customer) {
         Orders order = new Orders();
         order.setTotalPrice(cart.totalInCart());
-        order.setOrderStatus(OrderStatus.PENDING);
+        order.setOrderStatus(PaymentStatus.PENDING);
         order.setCustomer(customer);
         order.setCreatedAt(LocalDateTime.now());
 

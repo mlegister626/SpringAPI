@@ -1,9 +1,7 @@
-package com.codewithmosh.dtos;
+package com.codewithmosh.carts;
 
-import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import org.springframework.web.bind.annotation.Mapping;
 
 import java.math.BigDecimal;
 

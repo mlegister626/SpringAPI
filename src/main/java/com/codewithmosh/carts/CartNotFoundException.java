@@ -1,4 +1,4 @@
-package com.codewithmosh.exceptions;
+package com.codewithmosh.carts;
 
 public class CartNotFoundException extends RuntimeException {
 

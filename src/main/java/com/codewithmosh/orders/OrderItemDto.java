@@ -1,4 +1,4 @@
-package com.codewithmosh.dtos;
+package com.codewithmosh.orders;
 
 import lombok.Data;
 

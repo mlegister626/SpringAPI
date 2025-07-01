@@ -1,7 +1,6 @@
-package com.codewithmosh.dtos;
+package com.codewithmosh.carts;
 
 import lombok.Data;
-import org.mapstruct.Mapping;
 
 import java.math.BigDecimal;
 @Data

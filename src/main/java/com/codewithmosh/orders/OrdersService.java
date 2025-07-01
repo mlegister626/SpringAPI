@@ -1,12 +1,8 @@
-package com.codewithmosh.services;
+package com.codewithmosh.orders;
 
 import com.codewithmosh.auth.AuthService;
-import com.codewithmosh.dtos.OrdersDto;
 import com.codewithmosh.users.User;
-import com.codewithmosh.exceptions.OrderNotFoundException;
-import com.codewithmosh.mappers.OrdersMapper;
 import com.codewithmosh.users.UserMapper;
-import com.codewithmosh.repositories.OrdersRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;

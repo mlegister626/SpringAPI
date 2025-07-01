@@ -1,5 +1,6 @@
-package com.codewithmosh.entities;
+package com.codewithmosh.orders;
 
+import com.codewithmosh.carts.Cart;
 import com.codewithmosh.users.User;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;

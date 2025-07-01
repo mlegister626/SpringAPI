@@ -1,12 +1,12 @@
 package com.codewithmosh.payments;
 
-import com.codewithmosh.entities.Orders;
-import com.codewithmosh.exceptions.CartEmptyException;
-import com.codewithmosh.exceptions.CartNotFoundException;
-import com.codewithmosh.repositories.CartRepository;
-import com.codewithmosh.repositories.OrdersRepository;
+import com.codewithmosh.orders.Orders;
+import com.codewithmosh.carts.CartEmptyException;
+import com.codewithmosh.carts.CartNotFoundException;
+import com.codewithmosh.carts.CartRepository;
+import com.codewithmosh.orders.OrdersRepository;
 import com.codewithmosh.auth.AuthService;
-import com.codewithmosh.services.CartServices;
+import com.codewithmosh.carts.CartServices;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

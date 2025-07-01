@@ -1,6 +1,6 @@
 package com.codewithmosh.payments;
 
-import com.codewithmosh.entities.Orders;
+import com.codewithmosh.orders.Orders;
 
 import java.util.Optional;
 

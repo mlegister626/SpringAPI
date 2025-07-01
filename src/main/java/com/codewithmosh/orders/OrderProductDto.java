@@ -1,6 +1,5 @@
-package com.codewithmosh.dtos;
+package com.codewithmosh.orders;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.math.BigDecimal;

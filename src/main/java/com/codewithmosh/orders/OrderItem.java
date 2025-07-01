@@ -1,4 +1,4 @@
-package com.codewithmosh.entities;
+package com.codewithmosh.orders;
 
 import com.codewithmosh.products.Product;
 import jakarta.persistence.*;

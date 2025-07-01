@@ -1,6 +1,5 @@
 package com.codewithmosh.products;
 
-import com.codewithmosh.repositories.CategoryRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

@@ -1,4 +1,4 @@
-package com.codewithmosh.exceptions;
+package com.codewithmosh.orders;
 
 public class OrderNotFoundException extends RuntimeException {
     public OrderNotFoundException(){

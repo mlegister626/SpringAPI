@@ -1,8 +1,7 @@
-package com.codewithmosh.dtos;
+package com.codewithmosh.carts;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NonNull;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;

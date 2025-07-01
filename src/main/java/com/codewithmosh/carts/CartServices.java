@@ -1,11 +1,5 @@
-package com.codewithmosh.services;
+package com.codewithmosh.carts;
 
-import com.codewithmosh.dtos.AddItemToCartRequest;
-import com.codewithmosh.dtos.CartDto;
-import com.codewithmosh.dtos.CartItemsDto;
-import com.codewithmosh.entities.Cart;
-import com.codewithmosh.mappers.CartMapper;
-import com.codewithmosh.repositories.CartRepository;
 import com.codewithmosh.products.ProductRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;

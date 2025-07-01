@@ -1,8 +1,8 @@
 package com.codewithmosh.payments;
 
 import com.codewithmosh.dtos.ErrorDto;
-import com.codewithmosh.exceptions.CartNotFoundException;
-import com.codewithmosh.repositories.OrdersRepository;
+import com.codewithmosh.carts.CartNotFoundException;
+import com.codewithmosh.orders.OrdersRepository;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;

@@ -1,7 +1,5 @@
-package com.codewithmosh.mappers;
+package com.codewithmosh.orders;
 
-import com.codewithmosh.dtos.OrdersDto;
-import com.codewithmosh.entities.Orders;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 

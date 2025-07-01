@@ -1,7 +1,5 @@
-package com.codewithmosh.mappers;
+package com.codewithmosh.products;
 
-import com.codewithmosh.dtos.ProductDTO;
-import com.codewithmosh.entities.Product;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;

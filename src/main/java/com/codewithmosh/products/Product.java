@@ -1,5 +1,6 @@
-package com.codewithmosh.entities;
+package com.codewithmosh.products;
 
+import com.codewithmosh.entities.Category;
 import jakarta.persistence.*;
 import lombok.*;
 

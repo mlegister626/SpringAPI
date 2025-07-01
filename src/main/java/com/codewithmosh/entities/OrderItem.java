@@ -1,15 +1,13 @@
 package com.codewithmosh.entities;
 
+import com.codewithmosh.products.Product;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
 
 import java.math.BigDecimal;
-import java.util.LinkedHashSet;
-import java.util.Set;
 
 @Getter
 @Setter

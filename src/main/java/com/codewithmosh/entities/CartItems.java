@@ -1,6 +1,7 @@
 package com.codewithmosh.entities;
 
 
+import com.codewithmosh.products.Product;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

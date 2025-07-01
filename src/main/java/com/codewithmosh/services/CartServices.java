@@ -6,7 +6,7 @@ import com.codewithmosh.dtos.CartItemsDto;
 import com.codewithmosh.entities.Cart;
 import com.codewithmosh.mappers.CartMapper;
 import com.codewithmosh.repositories.CartRepository;
-import com.codewithmosh.repositories.ProductRepository;
+import com.codewithmosh.products.ProductRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 

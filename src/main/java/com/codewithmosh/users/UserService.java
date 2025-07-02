@@ -2,28 +2,17 @@ package com.codewithmosh.users;
 
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Sort;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
 import java.util.Set;
-
 @Service
 @AllArgsConstructor
-public class UserService implements UserDetailsService {
+
+public class UserService {
     private final UserRepository userRepository;
     private final UserMapper userMapper;
-
-    @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        var user = userRepository.findByEmail(email).orElseThrow(
-                () -> new UsernameNotFoundException("User not found"));
-        return new User(user.getEmail(), user.getPassword(), Collections.emptyList());
-    }
+    private final PasswordEncoder passwordEncoder;
 
     public Iterable<UserDto> returnAllUsers(String sortBy){
         if (!Set.of("name", "email").contains(sortBy))
@@ -38,5 +27,37 @@ public class UserService implements UserDetailsService {
     public UserDto getSingleUser(Long id){
         var user = userRepository.findById(id).orElseThrow(()-> new UserNotFoundException("A user could not be found"));
         return userMapper.toDto(user);
+    }
+
+    public UserDto registerUser(RegisterUserRequest request){
+        if(userRepository.existsByEmail(request.getEmail())){
+            throw new UserExistsException("The email is already registered.");
+        }
+        var user = userMapper.toEntity(request);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setRole(Role.USER);
+        userRepository.save(user);
+        return userMapper.toDto(user);
+    }
+    public UserDto updateUser(UpdateUserRequest request, Long id){
+        var user = userRepository.findById(id).orElseThrow(()-> new UserNotFoundException("A user could not be found"));
+        userMapper.update(request, user);
+        userRepository.save(user);
+
+        return userMapper.toDto(user);
+    }
+
+    public void deleteUser(Long id){
+        var user = userRepository.findById(id).orElseThrow(()-> new UserNotFoundException("A user could not be found"));
+        userRepository.delete(user);
+    }
+
+    public void changePassword(Long id, ChangePasswordRequest request){
+        var user = userRepository.findById(id).orElseThrow(() -> new UserNotFoundException("A user could not be found"));
+        if(!passwordEncoder.matches(request.getOldPassword(), user.getPassword())){
+            throw new UserNotFoundException("The old password does not match the current password.");
+        }
+        user.setPassword(passwordEncoder.encode(request.getNewPassword()));
+        userRepository.save(user);
     }
 }

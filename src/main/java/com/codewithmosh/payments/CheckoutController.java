@@ -1,6 +1,6 @@
 package com.codewithmosh.payments;
 
-import com.codewithmosh.dtos.ErrorDto;
+import com.codewithmosh.common.ErrorDto;
 import com.codewithmosh.carts.CartNotFoundException;
 import com.codewithmosh.orders.OrdersRepository;
 import jakarta.validation.Valid;

@@ -1,6 +1,6 @@
 package com.codewithmosh.orders;
 
-import com.codewithmosh.dtos.ErrorDto;
+import com.codewithmosh.common.ErrorDto;
 import com.codewithmosh.auth.AuthService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -16,9 +16,6 @@ import java.util.List;
 public class OrdersController {
 
     private final OrdersService OrdersService;
-    private final OrdersRepository ordersRepository;
-    private final AuthService authService;
-    private final OrdersMapper ordersMapper;
 
     @GetMapping("")
     public List<OrdersDto> getAllOrders(){

@@ -1,4 +1,4 @@
-package com.codewithmosh.auth;
+package com.codewithmosh.common;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

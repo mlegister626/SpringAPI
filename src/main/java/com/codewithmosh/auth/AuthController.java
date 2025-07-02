@@ -1,6 +1,6 @@
 package com.codewithmosh.auth;
 
-import com.codewithmosh.dtos.ErrorDto;
+import com.codewithmosh.common.ErrorDto;
 import com.codewithmosh.users.UserDto;
 import com.codewithmosh.users.UserMapper;
 import com.codewithmosh.users.UserNotFoundException;

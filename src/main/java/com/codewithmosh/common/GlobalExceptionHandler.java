@@ -1,6 +1,5 @@
-package com.codewithmosh.controllers;
+package com.codewithmosh.common;
 
-import com.codewithmosh.dtos.ErrorDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;

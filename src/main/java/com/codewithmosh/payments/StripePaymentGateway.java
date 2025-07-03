@@ -37,7 +37,7 @@ public class StripePaymentGateway  implements PaymentGateway{
                     .setMode(SessionCreateParams.Mode.PAYMENT)
                     .setSuccessUrl(websiteUrl + "/checkout-success?orderId=" + (order.getId()))
                     .setCancelUrl(websiteUrl + "/checkout-cancel")
-                    .putMetadata("orderId", order.getId().toString());
+                    .setPaymentIntentData(createPaymentIntentData(order));
 
             order.getItems().forEach(item -> {
                 var lineItem = createLineItem(item);
@@ -53,6 +53,12 @@ public class StripePaymentGateway  implements PaymentGateway{
         }
     }
 
+    private static SessionCreateParams.PaymentIntentData createPaymentIntentData(Orders order) {
+        return SessionCreateParams.PaymentIntentData.builder()
+                .putMetadata("order_id", order.getId().toString())
+                .build();
+    }
+
     @Override
     public Optional<PaymentResult> parseWebhookRequest(WebhookRequest request) {
         try {
@@ -66,11 +72,8 @@ public class StripePaymentGateway  implements PaymentGateway{
             return switch (event.getType()) {
                 case "payment_intent.succeeded" ->
                         Optional.of(new PaymentResult(extractOrderId(event), PaymentStatus.PAID));
-
-
                 case "payment_intent.payment_failed" ->
                         Optional.of(new PaymentResult(extractOrderId(event), PaymentStatus.FAILED));
-
                 default -> Optional.empty();
 
             };
